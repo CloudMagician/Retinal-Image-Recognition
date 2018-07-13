@@ -6,5 +6,6 @@ function diameter = ImageRecognition(imageName)
     
     
     FunctionAboutHistogram(image);
+    
     FunctionAboutDoubleGaussian(image);
 end

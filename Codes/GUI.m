@@ -22,7 +22,7 @@ function varargout = GUI(varargin)
 
 % Edit the above text to modify the response to help GUI
 
-% Last Modified by GUIDE v2.5 13-Jul-2018 12:47:29
+% Last Modified by GUIDE v2.5 15-Jul-2018 16:12:57
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -71,3 +71,50 @@ function varargout = GUI_OutputFcn(hObject, eventdata, handles)
 
 % Get default command line output from handles structure
 varargout{1} = handles.output;
+
+
+% --- Executes on button press in choosebutton.
+function choosebutton_Callback(hObject, eventdata, handles)
+% hObject    handle to choosebutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+%读文件
+[filepath,filename] = uigetfile({'*.jpg','*.bmp'},'Select the Image');
+
+if isempty(filename)
+    msgbox('Empty File !!','Warning','warn');
+else
+    currentfile = [filename,filepath];
+    currentimage = imread(currentfile);
+    axes(handles.imageaxes);
+    imshow(currentimage);
+    handles.currentimage = currentimage;
+    
+    % == 将文件路径和文件名保存到handles里面 == %
+    handles.filepath = filepath;
+    handles.filename = filename;
+    
+    % Update handles structure
+    guidata(hObject,handles);
+end
+
+% --- Executes on button press in cutbutton.
+function cutbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to cutbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in cancelbutton.
+function cancelbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to cancelbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in confirmbutton.
+function confirmbutton_Callback(hObject, eventdata, handles)
+% hObject    handle to confirmbutton (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)

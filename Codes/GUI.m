@@ -52,6 +52,10 @@ function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to GUI (see VARARGIN)
 
+%当前是否存在截图框
+global cutbool;
+cutbool = false;
+
 % Choose default command line output for GUI
 handles.output = hObject;
 
@@ -80,7 +84,7 @@ function choosebutton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 %读文件
-[filepath,filename] = uigetfile({'*.jpg','*.bmp'},'Select the Image');
+[filepath,filename] = uigetfile({'*.jpg';'*.bmp'},'Select the Image');
 
 if isempty(filename)
     msgbox('Empty File !!','Warning','warn');
@@ -105,6 +109,20 @@ function cutbutton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+global cutbool
+
+%setFixedAspectRatioMode(h,true); % == 固定长宽比 == %
+% rect = getPosition(h);
+h = imrect(handles.imageaxes,[10,10,250,200]);
+rect = wait(h);
+
+if cutbool == false
+    currentimage = handles.currentimage;
+    cutimage = imcrop(currentimage,rect);
+    handles.cutimage = cutimage;
+    cutbool = true;
+    guidata(hObject,handles);
+end
 
 % --- Executes on button press in cancelbutton.
 function cancelbutton_Callback(hObject, eventdata, handles)

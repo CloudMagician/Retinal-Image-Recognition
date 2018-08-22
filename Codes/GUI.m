@@ -52,14 +52,9 @@ function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 % handles    structure with handles and user data (see GUIDATA)
 % varargin   command line arguments to GUI (see VARARGIN)
 
-%当前是否存在原图
-setappdata(handles.imageaxes,'imagebool',false);
-
-%截图框
-%setappdata(handles.cutbutton,'rect');
-
 %当前是否存在截图框
-setappdata(handles.cutbutton,'cutbool',false);
+global cutbool;
+cutbool = false;
 
 % Choose default command line output for GUI
 handles.output = hObject;
@@ -89,7 +84,7 @@ function choosebutton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 %读文件
-[filepath,filename] = uigetfile({'*.bmp';'*.jpg'},'Select the Image');
+[filepath,filename] = uigetfile({'*.jpg';'*.bmp'},'Select the Image');
 
 if isempty(filename)
     msgbox('Empty File !!','Warning','warn');
@@ -98,11 +93,14 @@ else
     currentimage = imread(currentfile);
     axes(handles.imageaxes);
     imshow(currentimage);
+    handles.currentimage = currentimage;
     
-    setappdata(handles.imageaxes,'imagebool',true);
-    setappdata(handles.imageaxes,'currentimage',currentimage);
-    setappdata(handles.imageaxes,'filepath',filepath);
-    setappdata(handles.imageaxes,'filename',filename);
+    % == 将文件路径和文件名保存到handles里面 == %
+    handles.filepath = filepath;
+    handles.filename = filename;
+    
+    % Update handles structure
+    guidata(hObject,handles);
 end
 
 % --- Executes on button press in cutbutton.
@@ -111,21 +109,8 @@ function cutbutton_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-%获取全局变量imagebool的值
-imagebool = getappdata(handles.imageaxes,'imagebool');
+global cutbool
 
-<<<<<<< HEAD
-if imagebool == true
-    %获取全局变量cutbool的值
-    cutbool = getappdata(handles.cutbutton,'cutbool');
-
-    if cutbool == false
-        setappdata(handles.cutbutton,'cutbool',true);
-        h = imrect(handles.imageaxes,[10,10,250,200]);
-        rect = wait(h);
-        setappdata(handles.cutbutton,'rect',rect);
-    end
-=======
 %setFixedAspectRatioMode(h,true); % == 固定长宽比 == %
 % rect = getPosition(h);
 %h = imrect(handles.imageaxes);
@@ -139,7 +124,6 @@ if cutbool == false
     handles.cutimage = cutimage;
     cutbool = true;
     guidata(hObject,handles);
->>>>>>> 18c9589416c68bb244096c0fc760eaa6530189ab
 end
 
 
@@ -150,31 +134,12 @@ function cancelbutton_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 close all
 
-%获取全局变量cutbool的值
-cutbool = getappdata(handles.cutbutton,'cutbool');
-
-if cutbool == true
-    setappdata(handles.cutbutton,'cutbool',false);
-end
 
 % --- Executes on button press in confirmbutton.
 function confirmbutton_Callback(hObject, eventdata, handles)
 % hObject    handle to confirmbutton (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-<<<<<<< HEAD
-
-%获取全局变量cutbool的值
-cutbool = getappdata(handles.cutbutton,'cutbool');
-
-if cutbool == true
-    setappdata(handles.cutbutton,'cutbool',false);
-    rect = getappdata(handles.cutbutton,'rect');
-    currentimage = getappdata(handles.imageaxes,'currentimage');
-    cutimage = imcrop(currentimage,rect);
-    ImageRecognition(cutimage);
-end
-=======
 clc
 clear
 %D:\下载\978-7-302-46774-8MATLAB智能算法代码\Intelligent algorithm\10\s10_4\Lenna.bmp'));%
@@ -304,4 +269,3 @@ h5=y/g5
 h6=y/g6
 
 
->>>>>>> 18c9589416c68bb244096c0fc760eaa6530189ab

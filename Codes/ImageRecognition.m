@@ -1,11 +1,10 @@
 %Ö÷º¯Êý
-function diameter = ImageRecognition(imageName)
+function diameter = ImageRecognition(image)
     diameter = 0;
     
-    image = imread(imageName);
+    img = image;
     
+    %FunctionAboutHistogram(image);
     
-    FunctionAboutHistogram(image);
-    
-    FunctionAboutDoubleGaussian(image);
+    FunctionAboutDoubleGaussian(img);
 end

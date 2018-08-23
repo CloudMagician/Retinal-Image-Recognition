@@ -87,13 +87,13 @@ clc
 clear
 %D:\下载\978-7-302-46774-8MATLAB智能算法代码\Intelligent algorithm\10\s10_4\Lenna.bmp'));%
 close all
-img= imread('eg.jpg');%more quickly
+img1= imread('eg.jpg');%more quickly
 %D:\yaoxl\大创2\图集\KPIS\KPIS001.bmp
 %img=t(:,:,1);
 %imshow(img)
 %img=histeq(img);
 %img=double(img)+0.006*double(img) .*(255-double(img));
-img=rgb2gray(img);
+img=rgb2gray(img1);
 cluster_num = 2;%设置分类数
 maxiter = 60;%最大迭代次数
 %-------------随机初始化标签----------------
@@ -156,17 +156,17 @@ while iter < maxiter
     %改大小便于显示
     label = reshape(label,size(img));
     %---------显示----------------
-    if ~mod(iter,6) 
-        figure;
-        n=1;
-    end
-    subplot(2,3,n);
-    imshow(label,[]);
-    t=label;
-    title(['iter = ',num2str(iter)]);
-    pause(0.1);
-    n = n+1;
-    iter = iter + 1;
+%     if ~mod(iter,6) 
+%         figure;
+%         n=1;
+%     end
+%     subplot(2,3,n);
+%     imshow(label,[]);
+      t=label;
+%     title(['iter = ',num2str(iter)]);
+%     pause(0.1);
+%     n = n+1;
+     iter = iter + 1;
 end
 m=numel(t);
 x=length(find(t==1));
@@ -180,23 +180,29 @@ BW4=edge(t,'LOG',0.004);         	% LOG算子
 BW5=edge(t,'Canny',0.04);         	% Canny算子
 figure;
 subplot(2,3,1),
+imshow(img1)
+title('截取后图片')
+subplot(2,3,3),
 imshow(t,[])
 title('分割后图像')
 subplot(2,3,2),
-imshow(BW1)
-title('Roberts ')
-subplot(2,3,3),
-imshow(BW2)
-title(' Sobel ')
-subplot(2,3,4),
-imshow(BW3)
-title(' Prewitt ')
-subplot(2,3,5),
-imshow(BW4)
-title(' LOG ')
-subplot(2,3,6),
-imshow(BW5)
-title('Canny ')
+imshow(img)
+title('预处理')
+%subplot(2,3,2),
+%imshow(BW1)
+%title('Roberts ')
+% subplot(2,3,3),
+% imshow(BW2)
+% title(' Sobel ')
+% subplot(2,3,4),
+% imshow(BW3)
+% title(' Prewitt ')
+% subplot(2,3,5),
+% imshow(BW4)
+% title(' LOG ')
+% subplot(2,3,6),
+% imshow(BW5)
+% title('Canny ')
 g1=length(find(BW1==1))/2;
 g2=length(find(BW2==1))/2;
 g3=length(find(BW3==1))/2;

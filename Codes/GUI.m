@@ -174,23 +174,52 @@ y=min(x,m-x);
 %I=imread('D:\下载\978-7-302-46774-8MATLAB智能算法代码\Intelligent algorithm\10\s10_4\rice_noise.tif');
 BW1=edge(t,'Roberts',0.04);    	%Roberts算子
 BW2=edge(t,'Sobel',0.04);    	%Sobel算子
-BW6=edge(b,'Sobel',0.04);    	%Sobel算子
+% BW6=edge(b,'Sobel',0.04);    	%Sobel算子
 BW3=edge(t,'Prewitt',0.04);        	%Prewitt算子
 BW4=edge(t,'LOG',0.004);         	% LOG算子
 BW5=edge(t,'Canny',0.04);         	% Canny算子
+
+g1=length(find(BW1==1))/2;
+g2=length(find(BW2==1))/2;
+g3=length(find(BW3==1))/2;
+g4=length(find(BW4==1))/2;
+g5=length(find(BW5==1))/2;
+% g6=length(find(BW6==1))/2;
+h1=y/g1
+h2=y/g2
+h3=y/g3
+h4=y/g4
+h5=y/g5
+% h6=y/g6
+
+
 figure;
+
 subplot(2,3,1),
 imshow(img1)
 title('截取后图片')
+
+subplot(2,3,2),
+imshow(BW3)
+title(' 边缘检测 ')
+
 subplot(2,3,3),
 imshow(t,[])
 title('分割后图像')
-subplot(2,3,2),
-imshow(img)
-title('预处理')
-%subplot(2,3,2),
-%imshow(BW1)
-%title('Roberts ')
+
+gtext('实际血管宽度平均值：7.7385732','Color','red','FontSize',14)
+str = ['测量血管宽度平均值：',num2str(h3)]
+gtext(str,'Color','red','FontSize',14)
+
+
+% figure;
+% subplot(2,3,2),
+% imshow(img)
+% title('预处理')
+% 
+% subplot(2,3,2),
+% imshow(BW1)
+% title('Roberts ')
 % subplot(2,3,3),
 % imshow(BW2)
 % title(' Sobel ')
@@ -203,17 +232,7 @@ title('预处理')
 % subplot(2,3,6),
 % imshow(BW5)
 % title('Canny ')
-g1=length(find(BW1==1))/2;
-g2=length(find(BW2==1))/2;
-g3=length(find(BW3==1))/2;
-g4=length(find(BW4==1))/2;
-g5=length(find(BW5==1))/2;
-g6=length(find(BW6==1))/2;
-h1=y/g1
-h2=y/g2
-h3=y/g3
-h4=y/g4
-h5=y/g5
-h6=y/g6
+
+
 
 

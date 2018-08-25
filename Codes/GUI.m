@@ -200,16 +200,19 @@ imshow(img1)
 title('截取后图片')
 
 subplot(2,3,2),
-imshow(BW3)
-title(' 边缘检测 ')
-
-subplot(2,3,3),
 imshow(t,[])
 title('分割后图像')
 
-gtext('实际血管宽度平均值：7.7385732','Color','red','FontSize',14)
-str = ['测量血管宽度平均值：',num2str(h3)]
+subplot(2,3,3),
+imshow(BW3)
+title(' 边缘检测 ')
+
+
+str = ['测量血管宽度：',num2str(h3),'像素']
 gtext(str,'Color','red','FontSize',14)
+gtext('三名眼科医生标注结果的平均值：7.7385像素','Color','red','FontSize',14)
+
+
 
 
 % figure;

@@ -48,7 +48,6 @@ else
     currentimage = imread(currentfile);
     axes(handles.imageaxes);
     imshow(currentimage);
-    title('原始图片');
     handles.currentimage = currentimage;
     % == 将文件路径和文件名保存到handles里面 == %
     handles.filepath = filepath;
@@ -69,7 +68,6 @@ h = imcrop();
 %rect = wait(h);
 axes(handles.imageaxes);
 imshow(h);
-title('截取后图片');
 imwrite(h,'eg.jpg');
 if cutbool == false
     currentimage = handles.currentimage;
@@ -88,9 +86,8 @@ close all
 function confirmbutton_Callback(hObject, eventdata, handles)
 clc
 clear
-%D:\下载\978-7-302-46774-8MATLAB智能算法代码\
-%Intelligent algorithm\10\s10_4\Lenna.bmp'));%
-%close all
+%D:\下载\978-7-302-46774-8MATLAB智能算法代码\Intelligent algorithm\10\s10_4\Lenna.bmp'));%
+close all
 img1= imread('eg.jpg');%more quickly
 %D:\yaoxl\大创2\图集\KPIS\KPIS001.bmp
 %img=t(:,:,1);
@@ -198,18 +195,17 @@ h5=y/g5
 % h6=y/g6
 
 
-%figure;
+figure;
 %axes(handles.imageaxes);
-global hh1 hh2 hh3;
-hh1=subplot(2,3,1),
+subplot(2,3,1),
 imshow(img1)
 title('截取后图片')
 
-hh2=subplot(2,3,2),
+subplot(2,3,2),
 imshow(t,[])
 title('分割后图像')
 
-hh3=subplot(2,3,3),
+subplot(2,3,3),
 imshow(BW3)
 title(' 边缘检测 ')
 
@@ -241,3 +237,7 @@ gtext('三名眼科医生标注结果的平均值：7.7385像素','Color','red','FontSize',14)
 % subplot(2,3,6),
 % imshow(BW5)
 % title('Canny ')
+
+
+
+

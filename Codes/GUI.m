@@ -66,7 +66,8 @@ global cutbool
 %h = imrect(handles.imageaxes);
 h = imcrop();
 %rect = wait(h);
-figure;imshow(h);
+axes(handles.imageaxes);
+imshow(h);
 imwrite(h,'eg.jpg');
 if cutbool == false
     currentimage = handles.currentimage;
@@ -194,7 +195,7 @@ h5=y/g5
 
 
 figure;
-
+%axes(handles.imageaxes);
 subplot(2,3,1),
 imshow(img1)
 title('Ωÿ»°∫ÛÕº∆¨')

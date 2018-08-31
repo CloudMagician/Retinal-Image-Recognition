@@ -20,9 +20,12 @@ end
 
 function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
-%当前是否存在截图框
+% 当前是否存在截图框
 global cutbool;
 cutbool = false;
+
+% 隐藏图片区域
+set(handles.imageaxes,'visible','off')
 
 % Choose default command line output for GUI
 handles.output = hObject;
@@ -35,7 +38,7 @@ function varargout = GUI_OutputFcn(hObject, eventdata, handles)
 
 varargout{1} = handles.output;
 
-%选择函数
+% 选择按钮
 function choosebutton_Callback(hObject, eventdata, handles)
 
 %读文件
@@ -57,20 +60,17 @@ else
     guidata(hObject,handles);
 end
 
-%截图函数
+% 截图按钮
 function cutbutton_Callback(hObject, eventdata, handles)
 
 global cutbool
 
-%setFixedAspectRatioMode(h,true); % == 固定长宽比 == %
-% rect = getPosition(h);
-%h = imrect(handles.imageaxes);
 h = imcrop();
-%rect = wait(h);
 axes(handles.imageaxes);
 imshow(h);
 title('截取后图片');
 imwrite(h,'eg.jpg');
+
 if cutbool == false
     currentimage = handles.currentimage;
     cutimage = imcrop(currentimage,h);
@@ -79,13 +79,31 @@ if cutbool == false
     guidata(hObject,handles);
 end
 
-%退出.
+% 取消按钮
 function cancelbutton_Callback(hObject, eventdata, handles)
 
-close all
+global  hh1 hh2 hh3;
+h = 0;
+if ishandle(hh1)
+    delete(hh1);h=1;
+end
+if ishandle(hh2)
+    delete(hh2);h=1;
+end
+if ishandle(hh3)
+    delete(hh3);h=1;
+end
+if h
+    handles.imageaxes = axes('parent',handles.imagepanel);
+end
 
-%计算.
+cla(handles.imageaxes,'reset');
+set(handles.imageaxes,'visible','off')
+
+
+% 计算按钮
 function confirmbutton_Callback(hObject, eventdata, handles)
+
 clc
 clear
 %D:\下载\978-7-302-46774-8MATLAB智能算法代码\

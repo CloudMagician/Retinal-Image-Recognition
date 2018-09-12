@@ -20,10 +20,6 @@ end
 
 function GUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
-% 当前是否存在截图框
-global cutbool;
-cutbool = false;
-
 % 隐藏图片区域
 set(handles.imageaxes,'visible','off')
 
@@ -40,7 +36,6 @@ varargout{1} = handles.output;
 
 % 选择按钮
 function choosebutton_Callback(hObject, eventdata, handles)
-
 %读文件
 [filepath,filename] = uigetfile({'*.jpg';'*.bmp'},'Select the Image');
 
@@ -62,25 +57,18 @@ end
 
 % 截图按钮
 function cutbutton_Callback(hObject, eventdata, handles)
-
-global cutbool
-
-if cutbool == false
-    h = imcrop();
-    axes(handles.imageaxes);
-    imshow(h);
-    title('截取后图片');
-    imwrite(h,'eg.jpg');
-    currentimage = handles.currentimage;
-    cutimage = imcrop(currentimage,h);
-    handles.cutimage = cutimage;
-    cutbool = true;
-    guidata(hObject,handles);
-end
+h = imcrop();
+axes(handles.imageaxes);
+imshow(h);
+title('截取后图片');
+imwrite(h,'eg.jpg');
+currentimage = handles.currentimage;
+cutimage = imcrop(currentimage,h);
+handles.cutimage = cutimage;
+guidata(hObject,handles);
 
 % 取消按钮
 function cancelbutton_Callback(hObject, eventdata, handles)
-
 global  hh1 hh2 hh3;
 
 h = 0;
@@ -103,5 +91,4 @@ set(handles.imageaxes,'visible','off')
 
 % 计算按钮
 function confirmbutton_Callback(hObject, eventdata, handles)
-
 ImageRecognition()

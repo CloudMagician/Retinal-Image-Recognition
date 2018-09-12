@@ -1,6 +1,5 @@
 %主函数
 function ImageRecognition()
-
 clc
 clear
 cutimage= imread('eg.jpg');
@@ -16,7 +15,7 @@ maxiter = 60;       % 最大迭代次数
 label = kmeans(img(:),cluster_num);
 label = reshape(label,size(img));
 iter = 0;
-%b=label;
+
 while iter < maxiter
     %-------计算先验概率---------------
     %这里我采用的是像素点和3*3领域的标签相同
@@ -69,70 +68,58 @@ while iter < maxiter
     [~,label] = max(log(p_c) + log(p_sc));
     %改大小便于显示
     label = reshape(label,size(img));
-    %---------显示----------------
-%     if ~mod(iter,6) 
-%         figure;
-%         n=1;
-%     end
-%     subplot(2,3,n);
-%     imshow(label,[]);
-      t = label;
-%     title(['iter = ',num2str(iter)]);
-%     pause(0.1);
-%     n = n+1;
-     iter = iter + 1;
+    iter = iter + 1;
 end
 
-m = numel(t);
-x = length(find(t==1));
+m = numel(label);
+x = length(find(label==1));
 y = min(x,m-x);
 
 % Roberts算子
-% BW1 = edge(t,'Roberts',0.04);
+% BW1 = edge(label,'Roberts',0.04);
 % g1 = length(find(BW1==1))/2;
 % h1 = y/g1;
 
 % Sobel算子
-% BW2 = edge(t,'Sobel',0.04);
+% BW2 = edge(label,'Sobel',0.04);
 % g2 = length(find(BW2==1))/2;
 % h2 = y/g2;
 
 % Prewitt算子
-BW3 = edge(t,'Prewitt',0.04);
+BW3 = edge(label,'Prewitt',0.04);
 g3 = length(find(BW3==1))/2;
 h3 = y/g3;
 
 
 % LOG算子
-% BW4 = edge(t,'LOG',0.004);
+% BW4 = edge(label,'LOG',0.004);
 % g4 = length(find(BW4==1))/2;
 % h4 = y/g4;
 
 % Canny算子
-% BW5 = edge(t,'Canny',0.04);
+% BW5 = edge(label,'Canny',0.04);
 % g5 = length(find(BW5==1))/2;
 % h5 = y/g5;
 
 % Sobel算子
-% BW6 = edge(b,'Sobel',0.04);    	
+% BW6 = edge(label,'Sobel',0.04);
 % g6 = length(find(BW6==1))/2;
 % h6 = y/g6
 
+% 显示
 global hh1 hh2 hh3;
 
-hh1 = subplot(2,3,1);
-imshow(cutimage)
-title('截取后图片')
+str = ['测量血管宽度：',num2str(h3),'像素'];
 
-hh2 = subplot(2,3,2);
-imshow(t,[])
+hh1 = subplot(2,2,[1,2]);
+imshow(cutimage)
+title({str;'截取后图片'})
+
+hh2 = subplot(2,2,3);
+imshow(label,[])
 title('分割后图像')
 
-hh3 = subplot(2,3,3);
+hh3 = subplot(2,2,4);
 imshow(BW3)
 title(' 边缘检测 ')
-
-str = ['测量血管宽度：',num2str(h3),'像素'];
-gtext(str,'Color','red','FontSize',14)
-gtext('三名眼科医生标注结果的平均值：7.7385像素','Color','red','FontSize',14)
 end

@@ -36,7 +36,7 @@ varargout{1} = handles.output;
 
 % 选择按钮
 function choosebutton_Callback(hObject, eventdata, handles)
-%读文件
+% 读文件
 [filepath,filename] = uigetfile({'*.jpg';'*.bmp'},'Select the Image');
 
 if isempty(filename)
@@ -44,7 +44,7 @@ if isempty(filename)
 else
     currentfile = [filename,filepath];
     currentimage = imread(currentfile);
-    axes(handles.imageaxes);
+    %axes(handles.imageaxes);
     imshow(currentimage);
     title('原始图片');
     handles.currentimage = currentimage;

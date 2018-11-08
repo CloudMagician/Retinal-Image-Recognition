@@ -1,5 +1,6 @@
 %I = imread('CLRIS012.jpg');
-clear;clc;
+clear;
+clc;
 img = imread('CLRIS011.jpg');
 img=rgb2hsv(img);
 % %cform2lab = makecform('srgb2lab');

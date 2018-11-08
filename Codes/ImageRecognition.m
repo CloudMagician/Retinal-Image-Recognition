@@ -4,7 +4,9 @@ clc
 clear
 cutimage= imread('eg.jpg');
 
-img = rgb2gray(cutimage);
+cutimage = rgb2hsv(cutimage);
+
+img = cutimage(:,:,1);
 cluster_num = 2;    % 设置分类数
 maxiter = 60;       % 最大迭代次数
 

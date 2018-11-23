@@ -83,7 +83,7 @@ h = imcrop();
 axes(handles.imageaxes);
 imshow(h);
 title('截取后图片');
-imwrite(h,'eg.jpg');
+handles.cutimage = h;
 guidata(hObject,handles);
 
 % 取消按钮
@@ -110,7 +110,8 @@ set(handles.imageaxes,'visible','off')
 
 % 计算按钮
 function confirmbutton_Callback(hObject, eventdata, handles)
-testimage= imread('eg.jpg');
+
+testimage = handles.cutimage;
 
 cutimage = rgb2hsv(testimage);
 
@@ -176,6 +177,7 @@ m = numel(label);
 x = length(find(label==1));
 y = min(x,m-x);
 
+% 读取下拉框
 val = get(handles.popupmenuC,'value');
 switch val
     case 1
@@ -209,6 +211,7 @@ switch val
         g = length(find(BW==1))/2;
         h = y/g;
 end
+
 % 显示
 global hh1 hh2 hh3;
 

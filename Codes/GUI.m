@@ -110,9 +110,9 @@ set(handles.imageaxes,'visible','off')
 
 % 计算按钮
 function confirmbutton_Callback(hObject, eventdata, handles)
-cutimage= imread('eg.jpg');
+testimage= imread('eg.jpg');
 
-cutimage = rgb2hsv(cutimage);
+cutimage = rgb2hsv(testimage);
 
 img = cutimage(:,:,1);
 cluster_num = 2;    % 设置分类数
@@ -215,7 +215,7 @@ global hh1 hh2 hh3;
 str = ['测量血管宽度：',num2str(h),'像素'];
 
 hh1 = subplot(2,2,[1,2]);
-imshow(cutimage)
+imshow(testimage)
 title({str;'截取后图片'})
 
 hh2 = subplot(2,2,3);

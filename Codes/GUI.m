@@ -177,7 +177,7 @@ m = numel(label);
 x = length(find(label==1));
 y = min(x,m-x);
 
-% 读取下拉框
+% 读取
 val = get(handles.popupmenuC,'value');
 switch val
     case 1
